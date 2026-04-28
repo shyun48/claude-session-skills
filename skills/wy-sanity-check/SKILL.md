@@ -1,5 +1,5 @@
 ---
-name: wy-rto-sanity-check
+name: wy-sanity-check
 description: 코드 변경 후 빠른 무결성 검증. import 테스트, 예측값 범위, 피처 정합성을 5분 이내 확인
 user-invocable: true
 ---

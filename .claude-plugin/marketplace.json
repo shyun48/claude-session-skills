@@ -5,7 +5,7 @@
   },
   "plugins": [
     {
-      "name": "wy-rto",
+      "name": "wy-task-mgmt",
       "source": "."
     }
   ]
