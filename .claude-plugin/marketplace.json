@@ -6,7 +6,11 @@
   "plugins": [
     {
       "name": "session-skills",
-      "source": "."
+      "source": "./plugins/session-skills"
+    },
+    {
+      "name": "wy-rto-harness",
+      "source": "./plugins/wy-rto-harness"
     }
   ]
 }
