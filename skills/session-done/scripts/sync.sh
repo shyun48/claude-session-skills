@@ -6,8 +6,7 @@
 
 set -euo pipefail
 
-SKILL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-CONFIG_PATH="$SKILL_DIR/config.json"
+CONFIG_PATH="$HOME/.claude/skills/session-done/config.json"
 
 if [[ ! -f "$CONFIG_PATH" ]]; then
   echo "ERROR: config.json 없음. setup.sh 를 먼저 실행하세요." >&2

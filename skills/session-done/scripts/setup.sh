@@ -61,8 +61,9 @@ fi
 
 mkdir -p "$DRIVE_ROOT"
 
-SKILL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-CONFIG_PATH="$SKILL_DIR/config.json"
+CONFIG_DIR="$HOME/.claude/skills/session-done"
+CONFIG_PATH="$CONFIG_DIR/config.json"
+mkdir -p "$CONFIG_DIR"
 
 README_PATH="$DRIVE_ROOT/README.md"
 if [[ ! -f "$README_PATH" ]]; then
