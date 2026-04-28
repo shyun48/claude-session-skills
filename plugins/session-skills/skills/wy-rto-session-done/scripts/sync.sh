@@ -6,7 +6,7 @@
 
 set -euo pipefail
 
-CONFIG_PATH="$HOME/.claude/skills/session-done/config.json"
+CONFIG_PATH="$HOME/.claude/skills/wy-rto-session-done/config.json"
 
 if [[ ! -f "$CONFIG_PATH" ]]; then
   echo "ERROR: config.json 없음. setup.sh 를 먼저 실행하세요." >&2

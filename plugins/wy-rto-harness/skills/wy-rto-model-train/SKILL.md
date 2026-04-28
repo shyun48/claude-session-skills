@@ -1,5 +1,5 @@
 ---
-name: model-train
+name: wy-rto-model-train
 description: 예측 모델 재학습 워크플로우. 모델 유형에 구애받지 않고 최적 접근법을 탐색. 피처 확인 → 데이터 준비 → 모델 선택 → 학습 → 검증
 user-invocable: true
 ---

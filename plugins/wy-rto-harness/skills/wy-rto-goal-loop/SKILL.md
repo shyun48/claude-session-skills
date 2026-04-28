@@ -1,5 +1,5 @@
 ---
-name: goal-loop
+name: wy-rto-goal-loop
 description: 과제 폴더의 goals.md를 읽고 목표 달성까지 자동 반복. 정체 시 전문가 5인 자문 자동 발동. autopilot/ralph와 조합 가능
 user-invocable: true
 argument-hint: "<과제 폴더 경로>"
@@ -9,10 +9,10 @@ argument-hint: "<과제 폴더 경로>"
 
 ## 실행 방법
 ```
-/goal-loop 03_tasks/active/T-xxx/       # 과제 폴더 지정
-/goal-loop                              # 현재 디렉토리에서 goals.md 탐색
-autopilot: /goal-loop으로 goals.md TODO 모두 달성해줘
-ralph로 /goal-loop 돌려줘
+/wy-rto-goal-loop 03_tasks/active/T-xxx/       # 과제 폴더 지정
+/wy-rto-goal-loop                              # 현재 디렉토리에서 goals.md 탐색
+autopilot: /wy-rto-goal-loop으로 goals.md TODO 모두 달성해줘
+ralph로 /wy-rto-goal-loop 돌려줘
 ```
 
 ## STEP 0: LOCATE
@@ -44,7 +44,7 @@ goals.md에서 TODO/WIP 상태인 항목 추출.
 - 수정 대상 파일/함수 특정
 - 필요한 데이터/리소스 확인
 - 실패 시 rollback 방법 설계
-- 관련 스킬 선택 (/model-train, /model-evaluate, /sanity-check 등)
+- 관련 스킬 선택 (/wy-rto-model-train, /wy-rto-model-evaluate, /wy-rto-sanity-check 등)
 - 예상 변경 사항을 plan 문서로 정리
 
 **계획 완성 자가 점검 (3가지 모두 YES여야 통과):**

@@ -27,22 +27,22 @@ Claude Code 플러그인 마켓플레이스 — 운영효율화파트 공용 스
 ## 첫 셋업
 
 ### session-skills
-`/session-done` 1회 호출 → 인터뷰로 `user_name` / `drive_root` / `local_root` 입력 → `~/.claude/skills/session-done/config.json` 자동 생성 (플러그인 업데이트 무관하게 유지).
+`/wy-rto-session-done` 1회 호출 → 인터뷰로 `user_name` / `drive_root` / `local_root` 입력 → `~/.claude/skills/wy-rto-session-done/config.json` 자동 생성 (플러그인 업데이트 무관하게 유지).
 
 ### wy-rto-harness
-별도 셋업 불필요. 과제 폴더에 `goals.md` 가 있으면 `/goal-loop <task-folder>` 로 즉시 실행. `goals-template.md` 는 새 과제 시작 시 참조.
+별도 셋업 불필요. 과제 폴더에 `goals.md` 가 있으면 `/wy-rto-goal-loop <task-folder>` 로 즉시 실행. `goals-template.md` 는 새 과제 시작 시 참조.
 
 ## 사용
 
 ```
 # 세션 재개
-/session-resume                       # 또는 "이어서 하자"
+/wy-rto-session-resume                       # 또는 "이어서 하자"
 
 # 세션 종료
-/session-done                         # 또는 "오늘 작업 마무리"
+/wy-rto-session-done                         # 또는 "오늘 작업 마무리"
 
 # 분석/모델 하네스
-/goal-loop 03_tasks/active/T-...-slug/
+/wy-rto-goal-loop 03_tasks/active/T-...-slug/
 ```
 
 ## 업데이트 / 제거
