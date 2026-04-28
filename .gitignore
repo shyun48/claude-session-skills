@@ -1,0 +1,13 @@
+# 셋업 결과 (사용자별 — 절대 커밋 금지. config.example.json 만 공유)
+session-done/config.json
+
+# OS / editor
+.DS_Store
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Local test artifacts
+*.log
+.tmp/
