@@ -1,6 +1,6 @@
 {
   "name": "session-skills",
   "description": "Claude Code 세션 재개/종료 스킬 — progress.md/handoffs 자동 갱신 + 클라우드 폴더 미러링",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "author": "suhyun.kim"
 }

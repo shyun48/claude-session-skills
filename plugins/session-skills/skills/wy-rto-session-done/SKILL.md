@@ -1,6 +1,6 @@
 ---
-name: session-done
-description: 세션 종료 시 진행 상황을 정리하고 클라우드 동기화 폴더(Google Drive Desktop, Dropbox, iCloud Drive 등 로컬 마운트되는 모든 클라우드 폴더)에 MD 문서만 미러링. 페이즈 종료 / 단순 세션 종료 두 가지 모드. /session-done 호출 시 사용. 최초 1회 셋업 (사용자명 + Drive 폴더 경로) 필요.
+name: wy-rto-session-done
+description: 세션 종료 시 진행 상황을 정리하고 클라우드 동기화 폴더(Google Drive Desktop, Dropbox, iCloud Drive 등 로컬 마운트되는 모든 클라우드 폴더)에 MD 문서만 미러링. 페이즈 종료 / 단순 세션 종료 두 가지 모드. /wy-rto-session-done 호출 시 사용. 최초 1회 셋업 (사용자명 + Drive 폴더 경로) 필요.
 ---
 
 # session-done
@@ -10,11 +10,11 @@ description: 세션 종료 시 진행 상황을 정리하고 클라우드 동기
 2. 로컬에 마운트된 클라우드 동기화 폴더로 MD 문서만 미러링
 
 ## 트리거
-- 사용자가 `/session-done` 입력
+- 사용자가 `/wy-rto-session-done` 입력
 - 사용자가 "세션 종료", "오늘 작업 마무리", "Drive에 정리해줘" 같은 표현
 
 ## 사전 조건
-스킬 디렉토리: `~/.claude/skills/session-done/`
+스킬 디렉토리: `~/.claude/skills/wy-rto-session-done/`
 - `scripts/setup.sh` — 최초 셋업
 - `scripts/sync.sh` — 미러링 (rsync)
 - `scripts/secret_scan.sh` — 민감정보 스캔
@@ -37,7 +37,7 @@ description: 세션 종료 시 진행 상황을 정리하고 클라우드 동기
 ### Step 0. config.json 존재 확인
 
 ```bash
-test -f ~/.claude/skills/session-done/config.json && echo OK || echo SETUP_NEEDED
+test -f ~/.claude/skills/wy-rto-session-done/config.json && echo OK || echo SETUP_NEEDED
 ```
 
 `SETUP_NEEDED` → **Step 1 (셋업 인터뷰)**.
@@ -73,7 +73,7 @@ ls ~/Library/CloudStorage/ 2>/dev/null
 #### 1-D. 셋업 스크립트 실행
 
 ```bash
-${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/session-done/scripts/setup.sh \
+${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/wy-rto-session-done/scripts/setup.sh \
   --drive-root '<DRIVE_FULL_PATH>' \
   --user-name '<USER_NAME>' \
   --local-root '<LOCAL_ROOT>'
@@ -180,19 +180,19 @@ ${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/session-done/scripts/setup
    ```bash
    FILE_LIST=$(mktemp)
    # 스캔 대상 MD 절대경로 줄단위 기록
-   ${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/session-done/scripts/secret_scan.sh "$FILE_LIST"
+   ${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/wy-rto-session-done/scripts/secret_scan.sh "$FILE_LIST"
    ```
    exit code != 0 → 결과를 사용자에게 보여주고 **동기화 중단**. 정리 후 재실행 안내.
 
 3. **Dry-run 미리보기**:
    ```bash
-   ${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/session-done/scripts/sync.sh --dry-run
+   ${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/wy-rto-session-done/scripts/sync.sh --dry-run
    ```
    결과 사용자에게 보여주고 확인.
 
 4. **실제 동기화**:
    ```bash
-   ${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/session-done/scripts/sync.sh
+   ${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/wy-rto-session-done/scripts/sync.sh
    ```
 
 5. **결과 리포트**:

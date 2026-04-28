@@ -61,7 +61,7 @@ fi
 
 mkdir -p "$DRIVE_ROOT"
 
-CONFIG_DIR="$HOME/.claude/skills/session-done"
+CONFIG_DIR="$HOME/.claude/skills/wy-rto-session-done"
 CONFIG_PATH="$CONFIG_DIR/config.json"
 mkdir -p "$CONFIG_DIR"
 
@@ -87,7 +87,7 @@ if [[ ! -f "$README_PATH" ]]; then
 - 실행 결과물 (\`out/\`)
 
 ## 동기화 시점
-- 로컬에서 \`/session-done\` 실행 시
+- 로컬에서 \`/wy-rto-session-done\` 실행 시
 - 단방향 (로컬 → Drive)
 
 생성일: $(date '+%Y-%m-%d %H:%M:%S %Z')
