@@ -1,8 +1,6 @@
-# claude-session-skills
+# wy-task-mgmt
 
 운영효율화파트 공용 Claude Code 플러그인 — 과제 관리 자동화 + 세션 재개/종료 + 분석/모델 고도화 하네스.
-
-플러그인 이름: **wy-task-mgmt**
 
 ## 수록 스킬
 
@@ -20,8 +18,8 @@
 Claude Code 안에서:
 
 ```
-/plugin marketplace add shyun48/claude-session-skills
-/plugin install wy-task-mgmt@claude-session-skills
+/plugin marketplace add shyun48/wy-task-mgmt
+/plugin install wy-task-mgmt@wy-task-mgmt
 ```
 
 **Public 레포 — 사전 인증 불필요.**
@@ -49,8 +47,8 @@ Claude Code 안에서:
 ## 업데이트 / 제거
 
 ```
-/plugin marketplace update claude-session-skills
-/plugin uninstall wy-task-mgmt@claude-session-skills
+/plugin marketplace update wy-task-mgmt
+/plugin uninstall wy-task-mgmt@wy-task-mgmt
 ```
 
 ## 폴더 컨벤션 (세션 스킬이 가정)
@@ -69,12 +67,24 @@ Claude Code 안에서:
 
 ## 이전 버전에서 마이그레이션
 
-### v0.4.0 (`wy-rto` 플러그인)에서
+> 레포 이름이 `claude-session-skills` → `wy-task-mgmt` 로 변경됨. GitHub redirect 덕에 옛 URL 도 동작은 하지만, 마켓플레이스를 새로 등록해야 명령이 깔끔해집니다.
+
+### v0.5.0 (`wy-task-mgmt` 플러그인 + 옛 마켓플레이스 이름) 에서
+
+```
+/plugin uninstall wy-task-mgmt@claude-session-skills
+/plugin marketplace remove claude-session-skills
+/plugin marketplace add shyun48/wy-task-mgmt
+/plugin install wy-task-mgmt@wy-task-mgmt
+```
+
+### v0.4.0 (`wy-rto` 플러그인) 에서
 
 ```
 /plugin uninstall wy-rto@claude-session-skills
-/plugin marketplace update claude-session-skills
-/plugin install wy-task-mgmt@claude-session-skills
+/plugin marketplace remove claude-session-skills
+/plugin marketplace add shyun48/wy-task-mgmt
+/plugin install wy-task-mgmt@wy-task-mgmt
 mv ~/.claude/skills/wy-rto-session-done ~/.claude/skills/wy-session-done
 ```
 
@@ -83,8 +93,9 @@ mv ~/.claude/skills/wy-rto-session-done ~/.claude/skills/wy-session-done
 ```
 /plugin uninstall session-skills@claude-session-skills
 /plugin uninstall wy-rto-harness@claude-session-skills
-/plugin marketplace update claude-session-skills
-/plugin install wy-task-mgmt@claude-session-skills
+/plugin marketplace remove claude-session-skills
+/plugin marketplace add shyun48/wy-task-mgmt
+/plugin install wy-task-mgmt@wy-task-mgmt
 mv ~/.claude/skills/session-done ~/.claude/skills/wy-session-done
 ```
 
