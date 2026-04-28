@@ -5,12 +5,8 @@
   },
   "plugins": [
     {
-      "name": "session-skills",
-      "source": "./plugins/session-skills"
-    },
-    {
-      "name": "wy-rto-harness",
-      "source": "./plugins/wy-rto-harness"
+      "name": "wy-rto",
+      "source": "."
     }
   ]
 }
