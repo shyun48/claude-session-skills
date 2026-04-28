@@ -83,7 +83,7 @@ rsync -av $DRY_RUN --prune-empty-dirs \
   --exclude='.DS_Store' \
   --exclude='CLAUDE.md' \
   --exclude='*.drive-conflict-*.md' \
-  "${INCLUDE_ARGS[@]}" \
+  ${INCLUDE_ARGS[@]+"${INCLUDE_ARGS[@]}"} \
   --include='*/' \
   --include='registry.md' \
   --include='01_projects/**/*.md' \
