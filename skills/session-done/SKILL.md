@@ -73,7 +73,7 @@ ls ~/Library/CloudStorage/ 2>/dev/null
 #### 1-D. 셋업 스크립트 실행
 
 ```bash
-~/.claude/skills/session-done/scripts/setup.sh \
+${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/session-done/scripts/setup.sh \
   --drive-root '<DRIVE_FULL_PATH>' \
   --user-name '<USER_NAME>' \
   --local-root '<LOCAL_ROOT>'
@@ -180,19 +180,19 @@ ls ~/Library/CloudStorage/ 2>/dev/null
    ```bash
    FILE_LIST=$(mktemp)
    # 스캔 대상 MD 절대경로 줄단위 기록
-   ~/.claude/skills/session-done/scripts/secret_scan.sh "$FILE_LIST"
+   ${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/session-done/scripts/secret_scan.sh "$FILE_LIST"
    ```
    exit code != 0 → 결과를 사용자에게 보여주고 **동기화 중단**. 정리 후 재실행 안내.
 
 3. **Dry-run 미리보기**:
    ```bash
-   ~/.claude/skills/session-done/scripts/sync.sh --dry-run
+   ${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/session-done/scripts/sync.sh --dry-run
    ```
    결과 사용자에게 보여주고 확인.
 
 4. **실제 동기화**:
    ```bash
-   ~/.claude/skills/session-done/scripts/sync.sh
+   ${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/session-done/scripts/sync.sh
    ```
 
 5. **결과 리포트**:
