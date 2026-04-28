@@ -1,5 +1,5 @@
 ---
-name: wy-rto-model-evaluate
+name: wy-model-evaluate
 description: 예측 모델 성능 평가 및 비교. MAE/RMSE, 분위수 캘리브레이션, 시나리오별 성능을 측정하여 goals.md 지표 갱신
 user-invocable: true
 ---
