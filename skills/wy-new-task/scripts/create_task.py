@@ -40,6 +40,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--mode", required=True, choices=["A", "C"])
     p.add_argument("--from-jira", default="", help="모드 C 에서만 — 원천 Jira 키")
     p.add_argument("--jira-description", default="", help="모드 C 에서 brief 에 박을 description")
+    p.add_argument("--due-date", default="", help="목표일자 ISO YYYY-MM-DD")
+    p.add_argument("--part", default="", help="파트(Jira component) 이름")
     return p.parse_args()
 
 
@@ -84,6 +86,8 @@ BRIEF_TPL = """# Brief — {title}
 
 > **타입**: {type_label}
 > **프로젝트**: {project_label}
+> **파트**: {part_label}
+> **목표일자**: {due_date_label}
 > **생성**: {created_at}
 {jira_lines}
 
@@ -101,6 +105,8 @@ ASK_TPL = """# 분석 질문 — {title}
 
 > **타입**: {type_label}
 > **프로젝트**: {project_label}
+> **파트**: {part_label}
+> **목표일자**: {due_date_label}
 > **생성**: {created_at}
 {jira_lines}
 
@@ -237,6 +243,8 @@ def main() -> int:
         title=args.title,
         type_label=type_label,
         project_label=project_label,
+        part_label=args.part or "(없음)",
+        due_date_label=args.due_date or "(미정)",
         created_at=created_at,
         created_at_date=today_iso,
         goal=args.goal or "(미정)",
@@ -282,6 +290,8 @@ def main() -> int:
         )
 
     out = {
+        "due_date": args.due_date,
+        "part": args.part,
         "task_id": task_id,
         "task_dir": str(task_dir),
         "task_dir_rel": task_dir_rel,

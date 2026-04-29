@@ -2,7 +2,7 @@
 name: wy-new-task
 description: 신규 과제 폴더 + Jira 티켓을 한 번에 생성. 폴더만 있으면 Jira 발급(역방향), Jira만 있으면 폴더 스캐폴드(정방향), 둘 다 있으면 매핑만 등록(복구). Atlassian MCP 미셋업 시 Jira 단계 자동 스킵. /wy-new-task 호출 시 사용.
 user-invocable: true
-argument-hint: "[<폴더경로>|<JIRA-KEY>|--no-jira|--project-key <KEY>] [<제목>]"
+argument-hint: "[<폴더경로>|<JIRA-KEY>|--no-jira|--project-key <KEY>|--due <YYYY-MM-DD>|--part <NAME>] [<제목>]"
 ---
 
 # wy-new-task
@@ -40,6 +40,14 @@ Atlassian Cloud 인스턴스 도메인? (예: cloud.jira.woowa.in)
 
 이렇게 결정된 값을 `$JIRA_PROJECT_KEY` 로 보관 후 Step 3 에서 사용.
 
+**파트(컴포넌트) 결정** — 우선순위:
+1. `--part <NAME>` 플래그
+2. `~/.claude/skills/wy-new-task/config.json` 의 `part`
+3. `~/.claude/skills/wy-session-done/config.json` 의 `part` (재사용)
+4. 사용자에게 묻고 wy-new-task config 에 저장 (이후 재사용)
+
+값을 `$PART` 로 보관. Jira 이슈의 `components` 필드에 사용.
+
 ### 1. 메타 수집
 
 **모드 A** — 인터뷰:
@@ -48,7 +56,8 @@ Atlassian Cloud 인스턴스 도메인? (예: cloud.jira.woowa.in)
 3. slug — Claude 가 제목에서 자동 변환(lowercase+hyphen) 후 그대로 사용 (확인 생략)
 4. 프로젝트 — `ls 01_projects/` 후보 + "없음" 옵션. 신규는 `01_projects/<name>/` 자동 생성
 5. 한 줄 골 (측정 가능)
-6. Jira 동시 생성? (Y/n) — MCP 가용+프로젝트 지정시 기본 Y
+6. **목표일자** (YYYY-MM-DD, 자연어 `+7d`/`next-week` 등 허용 → ISO로 정규화)
+7. Jira 동시 생성? (Y/n) — MCP 가용+프로젝트 지정시 기본 Y
 
 **모드 B** — 폴더 읽기:
 - 폴더 정규화 → `brief.md`/`01_ask.md`, `goals.md` Read
@@ -71,6 +80,8 @@ ${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/wy-new-task/scripts/create
   --type "<F|T>" --title "<제목>" --slug "<slug>" \
   --project "<project|''>" --goal "<골>" \
   --local-root "<local_root>" --mode "<A|C>" \
+  ${DUE_DATE:+--due-date "$DUE_DATE"} \
+  ${PART:+--part "$PART"} \
   ${JIRA_KEY:+--from-jira "$JIRA_KEY"}
 ```
 
@@ -88,6 +99,8 @@ ${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/wy-new-task/scripts/create
 **3-B. Issue 생성 (Epic 하위)**
 - project_key=${JIRA_PROJECT_KEY}, issue_type=Task, parent=epic_key
 - summary=과제 한글 제목, description=골+brief 발췌
+- duedate=`$DUE_DATE` (ISO 8601, 있을 때만)
+- components=`[{"name": "$PART"}]` (있을 때만 — 컴포넌트가 프로젝트에 미리 등록되어 있어야 함, 없으면 사용자에게 안내)
 - labels=`["wy-task-mgmt", "<analysis|task>", "<project>"]`
 
 issue_key, issue_url 확보.
