@@ -115,6 +115,7 @@ issue_key, issue_url 확보.
 
 ## 주의
 - 폴더/slug 영문만. 한글은 brief.md/registry "이름" 컬럼.
+- **부모 디렉토리는 항상 복수**: `01_projects/`, `02_analyses/`, `03_tasks/`, `04_docs/`. 단수 폴더(`01_project` 등) 절대 생성 금지.
 - Jira 프로젝트 키는 `--project-key` > `.jira.json` > 글로벌 config > 첫 인터뷰 순으로 해결. 첫 인터뷰 결과는 `~/.claude/skills/wy-new-task/config.json` 에 저장되어 재사용.
 - 자동 추측 금지(프로젝트 추론은 항상 사용자 확인). slug 는 한글 제목에서 자동 변환.
 - 모드 시작 시 폴더↔registry↔Jira 일관성 체크. 끊긴 거 발견하면 묻고 복구.
