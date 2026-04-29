@@ -2,7 +2,7 @@
 name: wy-new-task
 description: 신규 과제 폴더 + Jira 티켓을 한 번에 생성. 폴더만 있으면 Jira 발급(역방향), Jira만 있으면 폴더 스캐폴드(정방향), 둘 다 있으면 매핑만 등록(복구). Atlassian MCP 미셋업 시 Jira 단계 자동 스킵. /wy-new-task 호출 시 사용.
 user-invocable: true
-argument-hint: "[<폴더경로>|<JIRA-KEY>|--no-jira] [<제목>]"
+argument-hint: "[<폴더경로>|<JIRA-KEY>|--no-jira|--project-key <KEY>] [<제목>]"
 ---
 
 # wy-new-task
@@ -22,8 +22,23 @@ argument-hint: "[<폴더경로>|<JIRA-KEY>|--no-jira] [<제목>]"
 
 ## 절차
 
-### 0. 모드 결정 + Jira 가용성
+### 0. 모드 결정 + Jira 가용성 + 프로젝트 키
 사용자 인자에서 모드 추출(위 표). `ToolSearch` 로 `atlassian|jira` 검색해 MCP 도구 확인. 없으면 `JIRA_AVAILABLE=false`, 사용자에게 "MCP 미셋업, 로컬만 생성" 안내.
+
+**Jira 프로젝트 키 결정** — 우선순위:
+1. `--project-key <KEY>` 플래그
+2. 해당 로컬 프로젝트의 `01_projects/<project>/.jira.json` 의 `project_key` 필드
+3. 글로벌 기본값 `~/.claude/skills/wy-new-task/config.json` 의 `default_project_key`
+4. 위 셋 다 없으면 사용자에게 묻고 글로벌 config 에 저장 (이후 재사용)
+
+config 미존재 시 첫 인터뷰:
+```
+Atlassian Cloud 인스턴스 도메인? (예: cloud.jira.woowa.in)
+기본 Jira 프로젝트 키? (예: REALTIMEOP, OPS, TEAM)
+```
+→ `~/.claude/skills/wy-new-task/config.json` 에 `{"jira_instance": "...", "default_project_key": "..."}` 저장.
+
+이렇게 결정된 값을 `$JIRA_PROJECT_KEY` 로 보관 후 Step 3 에서 사용.
 
 ### 1. 메타 수집
 
@@ -65,13 +80,13 @@ ${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/wy-new-task/scripts/create
 
 **3-A. 프로젝트 Epic 확인/생성**
 `01_projects/<project>/.jira.json` 의 `epic_key` 사용. 없으면 Atlassian MCP `create_issue` 로 Epic 생성:
-- project_key=REALTIMEOP, issue_type=Epic
+- project_key=${JIRA_PROJECT_KEY}, issue_type=Epic
 - summary=프로젝트 한글명, labels=`["wy-task-mgmt","auto-generated"]`
 
 성공 시 `.jira.json` 저장: `{"epic_key": "...", "project": "...", "created_at": "..."}`.
 
 **3-B. Issue 생성 (Epic 하위)**
-- project_key=REALTIMEOP, issue_type=Task, parent=epic_key
+- project_key=${JIRA_PROJECT_KEY}, issue_type=Task, parent=epic_key
 - summary=과제 한글 제목, description=골+brief 발췌
 - labels=`["wy-task-mgmt", "<analysis|task>", "<project>"]`
 
@@ -100,7 +115,7 @@ issue_key, issue_url 확보.
 
 ## 주의
 - 폴더/slug 영문만. 한글은 brief.md/registry "이름" 컬럼.
-- 기본 프로젝트 키 `REALTIMEOP`. 인터뷰에서 변경 가능.
+- Jira 프로젝트 키는 `--project-key` > `.jira.json` > 글로벌 config > 첫 인터뷰 순으로 해결. 첫 인터뷰 결과는 `~/.claude/skills/wy-new-task/config.json` 에 저장되어 재사용.
 - 자동 추측 금지(slug 변환·프로젝트 추론은 항상 사용자 확인).
 - 모드 시작 시 폴더↔registry↔Jira 일관성 체크. 끊긴 거 발견하면 묻고 복구.
 
