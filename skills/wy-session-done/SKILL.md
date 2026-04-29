@@ -24,7 +24,7 @@ test -f ~/.claude/skills/wy-session-done/config.json
 - `local_root`: 워크스페이스 루트 (기본 = 현재 디렉토리)
 
 ```bash
-python3 ${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/wy-session-done/scripts/setup.py \
+"$(command -v python3 || command -v python)" ${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/wy-session-done/scripts/setup.py \
   --drive-root '<...>' --user-name '<...>' --local-root '<...>'
 ```
 
@@ -61,9 +61,9 @@ python3 ${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/wy-session-done/sc
 ```bash
 SD=${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/wy-session-done/scripts
 FILE_LIST=$(mktemp)  # 변경 MD 절대경로 줄단위 기록
-python3 "$SD/secret_scan.py" "$FILE_LIST"   # exit≠0 → 중단, 정리 후 재시도
-python3 "$SD/sync.py" --dry-run             # 미리보기 후 사용자 확인
-python3 "$SD/sync.py"                       # 실제 동기화
+"$(command -v python3 || command -v python)" "$SD/secret_scan.py" "$FILE_LIST"   # exit≠0 → 중단, 정리 후 재시도
+"$(command -v python3 || command -v python)" "$SD/sync.py" --dry-run             # 미리보기 후 사용자 확인
+"$(command -v python3 || command -v python)" "$SD/sync.py"                       # 실제 동기화
 ```
 
 결과 리포트: 종료유형 / 과제(한글이름) / 페이즈 / 로컬 갱신 / Drive 업로드·충돌 / Drive 위치.
