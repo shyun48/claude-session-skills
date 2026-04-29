@@ -68,6 +68,13 @@ FILE_LIST=$(mktemp)  # 변경 MD 절대경로 줄단위 기록
 
 결과 리포트: 종료유형 / 과제(한글이름) / 페이즈 / 로컬 갱신 / Drive 업로드·충돌 / Drive 위치.
 
+### 8. /clear 안내 (마무리)
+세션 종료가 끝났으니 다음 세션을 깨끗하게 시작하기 위해 사용자에게 안내:
+```
+세션 종료 + 동기화 완료. 이어서 새 작업을 시작하려면 `/clear` 입력 후 `/wy-session-resume` 으로 컨텍스트 회복하세요.
+```
+사용자가 추가 작업 의사 보이면 `/clear` 권유 보류, 그렇지 않으면 권유.
+
 ## 주의
 - 폴더/slug 영문만(한글 이름은 registry "이름" 컬럼). macOS NFD/Drive 호환.
 - 단방향(로컬→Drive). Drive쪽 mtime 최신이면 `.drive-conflict-<ts>.md` 백업.
