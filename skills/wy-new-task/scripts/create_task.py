@@ -31,7 +31,7 @@ def kst_now() -> datetime:
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser()
-    p.add_argument("--type", required=True, choices=["F", "S", "T"])
+    p.add_argument("--type", required=True, choices=["F", "T"])
     p.add_argument("--title", required=True, help="과제 제목 (한글 자유 형식)")
     p.add_argument("--slug", required=True, help="영문 slug (lowercase + hyphen)")
     p.add_argument("--project", default="", help="01_projects/ 하위 프로젝트명. 빈 값이면 무관")

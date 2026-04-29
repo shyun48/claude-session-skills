@@ -43,9 +43,9 @@ Atlassian Cloud 인스턴스 도메인? (예: cloud.jira.woowa.in)
 ### 1. 메타 수집
 
 **모드 A** — 인터뷰:
-1. 타입 (F/S/T)
+1. 타입 (F/T) — F=분석, T=구현
 2. 제목 (한글)
-3. slug (영문, lowercase+hyphen) — 자동 제안 후 확인
+3. slug — Claude 가 제목에서 자동 변환(lowercase+hyphen) 후 그대로 사용 (확인 생략)
 4. 프로젝트 — `ls 01_projects/` 후보 + "없음" 옵션. 신규는 `01_projects/<name>/` 자동 생성
 5. 한 줄 골 (측정 가능)
 6. Jira 동시 생성? (Y/n) — MCP 가용+프로젝트 지정시 기본 Y
@@ -68,7 +68,7 @@ Atlassian Cloud 인스턴스 도메인? (예: cloud.jira.woowa.in)
 
 ```bash
 ${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/wy-new-task/scripts/create_task.py \
-  --type "<F|S|T>" --title "<제목>" --slug "<slug>" \
+  --type "<F|T>" --title "<제목>" --slug "<slug>" \
   --project "<project|''>" --goal "<골>" \
   --local-root "<local_root>" --mode "<A|C>" \
   ${JIRA_KEY:+--from-jira "$JIRA_KEY"}
@@ -116,7 +116,7 @@ issue_key, issue_url 확보.
 ## 주의
 - 폴더/slug 영문만. 한글은 brief.md/registry "이름" 컬럼.
 - Jira 프로젝트 키는 `--project-key` > `.jira.json` > 글로벌 config > 첫 인터뷰 순으로 해결. 첫 인터뷰 결과는 `~/.claude/skills/wy-new-task/config.json` 에 저장되어 재사용.
-- 자동 추측 금지(slug 변환·프로젝트 추론은 항상 사용자 확인).
+- 자동 추측 금지(프로젝트 추론은 항상 사용자 확인). slug 는 한글 제목에서 자동 변환.
 - 모드 시작 시 폴더↔registry↔Jira 일관성 체크. 끊긴 거 발견하면 묻고 복구.
 
 ## 실패 시
