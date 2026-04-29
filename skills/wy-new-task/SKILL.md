@@ -58,7 +58,7 @@ Atlassian Cloud 인스턴스 도메인? (예: cloud.jira.woowa.in)
 
 **모드 C** — Jira 읽기:
 - Atlassian MCP 로 issue 조회(summary/description/labels/parent epic/project key)
-- 타입=라벨(`analysis`→F/S, `task`→T) 매칭, 실패 시 묻기
+- 타입=라벨(`analysis`→F, `task`→T) 매칭, 실패 시 묻기
 - slug=summary 한→영 변환 시도, 실패 시 입력
 - 프로젝트=parent epic의 `.jira.json` 검색, 미매칭 시 묻기
 
