@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "wy-task-mgmt",
-      "source": "."
+      "source": "./"
     }
   ]
 }
