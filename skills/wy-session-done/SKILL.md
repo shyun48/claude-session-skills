@@ -18,13 +18,13 @@ test -f ~/.claude/skills/wy-session-done/config.json
 없으면 → **Step 1**. 있으면 → **Step 2**.
 
 ### 1. 셋업 인터뷰 (1회)
-사용자에게 다음을 묻고 setup.sh 실행:
+사용자에게 다음을 묻고 setup.py 실행:
 - `user_name`: Drive에 표시될 본인 이름 (자유 형식)
 - `drive_root`: 클라우드 동기화 폴더 절대경로. 후보 자동 감지: `ls ~/Library/CloudStorage/`
 - `local_root`: 워크스페이스 루트 (기본 = 현재 디렉토리)
 
 ```bash
-${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/wy-session-done/scripts/setup.sh \
+python3 ${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/wy-session-done/scripts/setup.py \
   --drive-root '<...>' --user-name '<...>' --local-root '<...>'
 ```
 
@@ -61,9 +61,9 @@ ${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/wy-session-done/scripts/se
 ```bash
 SD=${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/skills/..}/skills/wy-session-done/scripts
 FILE_LIST=$(mktemp)  # 변경 MD 절대경로 줄단위 기록
-"$SD/secret_scan.sh" "$FILE_LIST"   # exit≠0 → 중단, 정리 후 재시도
-"$SD/sync.sh" --dry-run             # 미리보기 후 사용자 확인
-"$SD/sync.sh"                       # 실제 동기화
+python3 "$SD/secret_scan.py" "$FILE_LIST"   # exit≠0 → 중단, 정리 후 재시도
+python3 "$SD/sync.py" --dry-run             # 미리보기 후 사용자 확인
+python3 "$SD/sync.py"                       # 실제 동기화
 ```
 
 결과 리포트: 종료유형 / 과제(한글이름) / 페이즈 / 로컬 갱신 / Drive 업로드·충돌 / Drive 위치.
